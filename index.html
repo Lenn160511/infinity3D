@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<script>
+  var t = localStorage.getItem('i3d-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', t);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>infinity3D – Individuelle 3D-Drucke</title>
+<meta name="description" content="infinity3D: eine kleine Werkstatt für individuelle 3D-Drucke, gegründet von einem 15-jährigen Tüftler.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="lock">
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader">
+  <div class="pl-stage">
+    <div class="pl-nozzle">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M8 3h8l-1.5 6h-5L8 3z" fill="#8b93a1"/>
+        <path d="M8.5 9h7l1 4H7.5l1-4z" fill="#ff6a2b"/>
+        <path d="M11 13h2v6h-2z" fill="#ff6a2b"/>
+      </svg>
+    </div>
+    <h1 class="pl-text" data-text="infinity3D">infinity3D</h1>
+  </div>
+  <div class="pl-meta">
+    <span>layer</span> <span id="plLayer">01</span>/24
+    <span style="margin-left:14px">progress</span> <span id="plPercent">0%</span>
+  </div>
+</div>
+
+<!-- ============ HEADER / NAV ============ -->
+<header>
+  <nav>
+    <a href="#top" class="logo"><span class="loop">∞</span>infinity3D</a>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+        <svg viewBox="0 0 24 24">
+          <circle class="spool-core" cx="12" cy="12" r="9"/>
+          <path class="spool-fill" d="M12 3a9 9 0 0 1 0 18z"/>
+          <circle class="spool-ring" cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="3" fill="var(--bg)" stroke-width="0"/>
+        </svg>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="9" width="16" height="8" rx="1.5" stroke="#8b93a1" stroke-width="1.4" class="printer-light-off"/>
+          <rect x="7" y="4" width="10" height="5" rx="1" stroke="#8b93a1" stroke-width="1.4"/>
+          <circle cx="16.5" cy="13" r="1.2" class="printer-light"/>
+        </svg>
+        Menü
+      </button>
+    </div>
+    <div class="nav-panel" id="navPanel">
+      <ul>
+        <li><a href="#hero"><span>Start</span><span class="idx">// 01</span></a></li>
+        <li><a href="#about"><span>Über uns</span><span class="idx">// 02</span></a></li>
+        <li><a href="#gallery"><span>Beispiele</span><span class="idx">// 03</span></a></li>
+        <li><a href="#order"><span>Auftrag</span><span class="idx">// 04</span></a></li>
+        <li><a href="#contact"><span>Kontakt</span><span class="idx">// 05</span></a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero grid-bg" id="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Werkstatt für 3D-Druck</p>
+        <h1>Schicht für Schicht<br>zur <span class="accent">fertigen Idee.</span></h1>
+        <p class="lead">infinity3D ist eine kleine Werkstatt, in der aus Ideen greifbare Objekte werden – gedruckt auf einem FDM-3D-Drucker, mit viel Sorgfalt für jede einzelne Schicht.</p>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn">Beispiele ansehen</a>
+          <a href="#order" class="btn btn-fill">Idee einreichen</a>
+        </div>
+      </div>
+      <div class="printer-vis">
+        <svg viewBox="0 0 300 300" fill="none">
+          <rect x="20" y="20" width="260" height="260" rx="10" fill="#20242d"/>
+          <!-- Druckbett -->
+          <rect x="60" y="220" width="180" height="8" rx="2" fill="#8b93a1"/>
+          <!-- gedrucktes Objekt: wächst schichtweise -->
+          <g class="pv-object">
+            <path d="M110 220 L110 150 Q150 120 190 150 L190 220 Z" fill="#ff6a2b" opacity="0.9"/>
+            <path d="M110 220 L110 150 Q150 120 190 150 L190 220 Z" fill="none" stroke="#14171c" stroke-width="2" stroke-dasharray="4 4"/>
+          </g>
+          <!-- Druckkopf -->
+          <g class="pv-head">
+            <rect x="128" y="90" width="44" height="16" rx="2" fill="#2bd9c9"/>
+            <path d="M142 106 h16 l-4 14 h-8 z" fill="var(--text)"/>
+          </g>
+          <!-- Führungsschienen -->
+          <line x1="40" y1="90" x2="260" y2="90" stroke="#8b93a1" stroke-width="1.5" opacity="0.4"/>
+          <line x1="60" y1="60" x2="60" y2="220" stroke="#8b93a1" stroke-width="1.5" opacity="0.3"/>
+          <line x1="240" y1="60" x2="240" y2="220" stroke="#8b93a1" stroke-width="1.5" opacity="0.3"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolpath"><svg viewBox="0 0 1180 64" preserveAspectRatio="none"><path d="M0 32 H1180"/><circle cx="0" cy="32" r="3"/></svg></div>
+
+  <!-- ============ ÜBER UNS ============ -->
+  <section class="about wrap" id="about">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="eyebrow">Über infinity3D</p>
+        <h2>Ein Kinderzimmer,<br>ein Drucker, eine Idee.</h2>
+        <p>infinity3D wurde von einem 15-jährigen Tüftler gegründet, der irgendwann einfach wissen wollte, wie aus einer Datei ein echtes, anfassbares Objekt wird. Aus der Neugier ist eine kleine Werkstatt geworden, in der mittlerweile für Freunde, Familie und alle, die eine Idee haben, gedruckt wird.</p>
+        <p>Jeder Auftrag wird von Hand vorbereitet, ausgerichtet und überwacht – kein automatisierter Großbetrieb, sondern echtes Interesse an jedem einzelnen Druck.</p>
+      </div>
+      <div class="spec-sheet reveal">
+        <div class="sh">Spezifikationen</div>
+        <dl>
+          <dt>Gründer</dt><dd>15 Jahre alt</dd>
+          <dt>Gegründet</dt><dd>2025</dd>
+          <dt>Drucktechnik</dt><dd>FDM (Schmelzschichtung)</dd>
+          <dt>Materialien</dt><dd>PLA, PETG</dd>
+          <dt>Werkstatt</dt><dd>Kinderzimmer-Setup</dd>
+          <dt>Antrieb</dt><dd>Neugier &amp; Geduld</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolpath"><svg viewBox="0 0 1180 64" preserveAspectRatio="none"><path d="M0 32 H1180"/><circle cx="1180" cy="32" r="3"/></svg></div>
+
+  <!-- ============ GALERIE ============ -->
+  <section class="gallery wrap" id="gallery">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">Beispiele</p>
+        <h2>Was hier schon entstanden ist</h2>
+      </div>
+      <p>Eine kleine Auswahl bisheriger Drucke – als Anschauung für Form, Material und Detailgrad.</p>
+    </div>
+
+    <div class="gallery-grid">
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <path d="M35 80 Q30 55 40 40 Q30 25 50 15 Q70 25 60 40 Q70 55 65 80 Z" fill="#ff6a2b"/>
+            <ellipse cx="50" cy="80" rx="15" ry="4" fill="#14171c" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Deko-Vase</h3>
+          <p>Organische Form mit durchgehender Spirallinie.</p>
+          <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="30" fill="none" stroke="#2bd9c9" stroke-width="8"/>
+            <circle cx="50" cy="50" r="10" fill="#2bd9c9"/>
+            <g stroke="#2bd9c9" stroke-width="8">
+              <line x1="50" y1="10" x2="50" y2="22"/>
+              <line x1="50" y1="78" x2="50" y2="90"/>
+              <line x1="10" y1="50" x2="22" y2="50"/>
+              <line x1="78" y1="50" x2="90" y2="50"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Zahnrad-Modell</h3>
+          <p>Funktionsteil mit engen Toleranzen, PETG für Stabilität.</p>
+          <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,16 mm</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="30" r="14" fill="var(--text)"/>
+            <path d="M32 55 Q50 45 68 55 L64 85 Q50 92 36 85 Z" fill="var(--text)"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Mini-Figur</h3>
+          <p>Kleine Charakterfigur, per Hand nachbearbeitet.</p>
+          <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,12 mm</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <rect x="30" y="20" width="40" height="60" rx="6" fill="#ff6a2b" opacity="0.85"/>
+            <rect x="38" y="55" width="24" height="34" rx="4" fill="#20242d"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Handy-Ständer</h3>
+          <p>Stabiler Alltagsgegenstand mit verstellbarem Winkel.</p>
+          <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,2 mm</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <path d="M50 15 L58 40 L85 40 L63 55 L71 80 L50 65 L29 80 L37 55 L15 40 L42 40 Z" fill="#2bd9c9"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Schlüsselanhänger</h3>
+          <p>Personalisierbare Form, klein und schnell gedruckt.</p>
+          <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,16 mm</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <svg viewBox="0 0 100 100" fill="none">
+            <path d="M20 70 L20 35 L35 35 L35 55 L45 35 L58 35 L47 58 L60 70 L46 70 L38 56 L35 62 L35 70 Z" fill="var(--text)"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Deko-Buchstaben</h3>
+          <p>Einzelbuchstaben zum Zusammenstecken, z. B. für Regale.</p>
+          <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="gallery-note">Alle gezeigten Modelle sind eigene Testdrucke von infinity3D.</p>
+  </section>
+
+  <div class="toolpath"><svg viewBox="0 0 1180 64" preserveAspectRatio="none"><path d="M0 32 H1180"/><circle cx="0" cy="32" r="3"/></svg></div>
+
+  <!-- ============ AUFTRAG ============ -->
+  <section class="order wrap" id="order">
+    <div class="order-grid">
+
+      <div class="slicer reveal">
+        <div class="slicer-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          slicer_preview.stl
+        </div>
+        <div class="slicer-body disabled">
+          <span class="slicer-flag">Nur Ansicht</span>
+
+          <div class="field">
+            <label>Material</label>
+            <div class="pill-row">
+              <span class="pill active">PLA</span>
+              <span class="pill">PETG</span>
+              <span class="pill">TPU</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Farbe</label>
+            <div class="swatches">
+              <span class="swatch active" style="background:#ff6a2b"></span>
+              <span class="swatch" style="background:#2bd9c9"></span>
+              <span class="swatch" style="background:#f3efe7"></span>
+              <span class="swatch" style="background:#14171c;border:1px solid #444"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Infill – 20%</label>
+            <input type="range" min="0" max="100" value="20" disabled style="width:100%">
+          </div>
+
+          <div class="field">
+            <label>3D-Modell</label>
+            <div class="dropzone">STL-Datei hierher ziehen<br>(Vorschau – aktuell deaktiviert)</div>
+          </div>
+
+          <div class="slicer-cta">Druckauftrag senden</div>
+        </div>
+      </div>
+
+      <div class="order-side reveal" id="contact">
+        <p class="eyebrow">So läuft eine Bestellung ab</p>
+        <h2>Kein Formular –<br>einfach schreiben.</h2>
+        <p>Diese Oberfläche zeigt nur, wie eine Bestellung aussehen könnte. Es werden hier keinerlei Daten erfasst oder gespeichert. Für einen echten Druckauftrag einfach direkt Kontakt aufnehmen.</p>
+
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <div><h4>Idee schicken</h4><p>Kurze Beschreibung oder Modell-Datei per E-Mail.</p></div>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <div><h4>Rückmeldung erhalten</h4><p>Machbarkeit, Material und ungefähre Druckzeit.</p></div>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <div><h4>Druck starten</h4><p>Das Objekt wird Schicht für Schicht gedruckt.</p></div>
+          </div>
+          <div class="step">
+            <span class="num">04</span>
+            <div><h4>Abholen oder versenden</h4><p>Übergabe nach Absprache.</p></div>
+          </div>
+        </div>
+
+        <div class="contact-box">
+          <p>Fragen oder eine konkrete Idee? Einfach eine E-Mail schreiben – ganz ohne Formular.</p>
+          <a href="mailto:hallo@infinity3d.de" class="btn btn-fill">hallo@infinity3d.de</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap footer-row">
+    <span>∞ infinity3D — kleine Werkstatt, großer Spaß am Drucken</span>
+    <span>Handgedruckt seit 2025</span>
+  </div>
+</footer>
+
+<script>
+/* ===================== PRELOADER ===================== */
+(function () {
+  const preloader = document.getElementById('preloader');
+  const layerEl = document.getElementById('plLayer');
+  const percentEl = document.getElementById('plPercent');
+  const duration = 2200;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    percentEl.textContent = Math.round(progress * 100) + '%';
+    layerEl.textContent = String(Math.max(1, Math.round(progress * 24))).padStart(2, '0');
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      preloader.classList.add('hidden');
+      document.body.classList.remove('lock');
+    }
+  }
+  requestAnimationFrame(tick);
+})();
+
+/* ===================== THEME-UMSCHALTER ===================== */
+(function () {
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('i3d-theme', next);
+  });
+})();
+
+/* ===================== NAV MENU (Drucker-Button) ===================== */
+(function () {
+  const toggle = document.getElementById('menuToggle');
+  const panel = document.getElementById('navPanel');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = panel.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  panel.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      panel.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+
+/* ===================== SCROLL REVEAL ===================== */
+(function () {
+  const items = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  items.forEach(item => observer.observe(item));
+})();
+</script>
+
+</body>
+</html>
