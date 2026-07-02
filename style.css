@@ -331,6 +331,48 @@ nav {
 
 :root[data-theme="light"] .theme-toggle .spool-fill { fill: var(--teal); }
 
+/* Sound-Toggle: schwebender Button unten rechts */
+.sound-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.sound-toggle:hover { border-color: var(--orange); color: var(--text); transform: translateY(-2px); }
+
+.eq { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+
+.eq span {
+  width: 3px;
+  background: var(--text-dim);
+  border-radius: 1px;
+  height: 4px;
+  transition: background 0.2s ease;
+}
+
+.sound-toggle.playing .eq span { background: var(--orange); animation: eq-bounce 0.9s ease-in-out infinite; }
+.sound-toggle.playing .eq span:nth-child(1) { animation-delay: -0.6s; }
+.sound-toggle.playing .eq span:nth-child(2) { animation-delay: -0.3s; }
+.sound-toggle.playing .eq span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes eq-bounce {
+  0%, 100% { height: 4px; }
+  50%      { height: 14px; }
+}
+
 .nav-panel {
   position: absolute;
   top: 100%;
