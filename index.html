@@ -113,7 +113,7 @@
       <div class="reveal">
         <p class="eyebrow">Über infinity3D</p>
         <h2>Ein Kinderzimmer,<br>ein Drucker, eine Idee.</h2>
-        <p>infinity3D wurde von einem 15-jährigen Tüftler gegründet. Als er einen Drucker bekam, nahm er erste Aufträge von Freunden an. Daraus ist eine kleine Werkstatt geworden, in der mittlerweile für  alle, die eine Idee haben, gedruckt wird.</p>
+        <p>infinity3D wurde von einem 15-jährigen Tüftler gegründet. Als er einen Drucker bekam, nahm er erste Aufträge von Freunden an. Daraus ist eine kleine Werkstatt geworden, in der mittlerwe[...]
         <p>Jeder Auftrag wird von Hand vorbereitet, ausgerichtet und überwacht – kein automatisierter Großbetrieb, sondern echtes Interesse an jedem einzelnen Druck.</p>
       </div>
       <div class="spec-sheet reveal">
@@ -267,7 +267,7 @@
       <div class="order-side reveal" id="contact">
         <p class="eyebrow">So läuft eine Bestellung ab</p>
         <h2>Kein Formular –<br>einfach schreiben.</h2>
-        <p>Diese Oberfläche zeigt nur, wie eine Bestellung aussehen könnte. Es werden hier keinerlei Daten erfasst oder gespeichert. Für einen echten Druckauftrag einfach direkt Kontakt aufnehmen.</p>
+        <p>Diese Oberfläche zeigt nur, wie eine Bestellung aussehen könnte. Es werden hier keinerlei Daten erfasst oder gespeichert. Für einen echten Druckauftrag einfach direkt Kontakt aufnehmen.<[...]
 
         <div class="steps">
           <div class="step">
@@ -313,6 +313,10 @@
   Musik
 </button>
 
+<audio id="bgMusic" style="display:none;">
+  <source src="the_mountain-piano-556110.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 /* ===================== PRELOADER ===================== */
 (function () {
@@ -336,96 +340,32 @@
   requestAnimationFrame(tick);
 })();
 
-/* ===================== WERKSTATT-SOUND ===================== */
+/* ===================== MP3-AUDIO-PLAYER ===================== */
 (function () {
   const btn = document.getElementById('soundToggle');
-  let ctx = null;
+  const audio = document.getElementById('bgMusic');
   let playing = false;
-  let loops = [];
 
-  function playTone(freq, duration = 1.2, volume = 0.18) {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+  // Audio loop bei Ende
+  audio.addEventListener('ended', () => {
+    audio.currentTime = 0;
+    audio.play();
+  });
 
-    osc.type = 'sine';
-    osc.frequency.value = freq;
-
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.1);
-    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
-
-    osc.connect(gain).connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + duration + 0.1);
-  }
-
-  function playChord(freqs, duration = 4.0, volume = 0.08) {
-    freqs.forEach(f => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      osc.type = 'triangle';
-      osc.frequency.value = f;
-
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.3);
-      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
-
-      osc.connect(gain).connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + duration + 0.2);
-    });
-  }
-
-  function start() {
-    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-    if (ctx.state === 'suspended') ctx.resume();
-
-    playing = true;
-    btn.classList.add('playing');
-    btn.setAttribute('aria-pressed', 'true');
-
-    /* ===================== MELODIE ===================== */
-    const melody = [220, 262, 294, 330, 262, 220, 196, 220];
-    let mIndex = 0;
-    loops.push(setInterval(() => {
-      playTone(melody[mIndex], 1.2, 0.18);
-      mIndex = (mIndex + 1) % melody.length;
-    }, 1200));
-
-    /* ===================== AKKORDE ===================== */
-    const chords = [
-      [440, 523, 659],  // Am
-      [349, 440, 523],  // F
-      [261, 330, 392],  // C
-      [196, 247, 392]   // G
-    ];
-    let cIndex = 0;
-    loops.push(setInterval(() => {
-      playChord(chords[cIndex], 4.0, 0.08);
-      cIndex = (cIndex + 1) % chords.length;
-    }, 4000));
-
-    /* ===================== PIANO-BASS ===================== */
-    const bass = [110, 87, 65, 98]; // A2, F2, C2, G2
-    let bIndex = 0;
-    loops.push(setInterval(() => {
-      playPianoBass(bass[bIndex], 0.12);
-      bIndex = (bIndex + 1) % bass.length;
-    }, 4000));
-  }
-
-  function stop() {
-    loops.forEach(l => clearInterval(l));
-    loops = [];
-    playing = false;
-    btn.classList.remove('playing');
-    btn.setAttribute('aria-pressed', 'false');
-  }
-
-  btn.addEventListener('click', () => (playing ? stop() : start()));
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      btn.classList.remove('playing');
+      btn.setAttribute('aria-pressed', 'false');
+    } else {
+      audio.play();
+      playing = true;
+      btn.classList.add('playing');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+  });
 })();
-
 
 /* ===================== THEME-UMSCHALTER ===================== */
 (function () {
