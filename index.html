@@ -46,6 +46,14 @@
           <circle cx="12" cy="12" r="3" fill="var(--bg)" stroke-width="0"/>
         </svg>
       </button>
+      <button class="cart-toggle" id="cartToggle" aria-label="Warenkorb" title="Warenkorb">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M3 6h18l-2 12H5L3 6z" stroke="#8b93a1" stroke-width="1.4" stroke-linejoin="round"/>
+          <circle cx="7" cy="19" r="1.5" fill="#8b93a1"/>
+          <circle cx="17" cy="19" r="1.5" fill="#8b93a1"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel">
         <svg viewBox="0 0 24 24" fill="none">
           <rect x="4" y="9" width="16" height="8" rx="1.5" stroke="#8b93a1" stroke-width="1.4" class="printer-light-off"/>
@@ -144,107 +152,124 @@
 
    <div class="gallery-grid">
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="vase.png" alt="Deko-Vase">
-    </div>
-    <div class="card-body">
-      <h3>Deko-Vase</h3>
-      <p>Organische Form mit durchgehender Spirallinie.</p>
-      <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
-    </div>
+  <div class="card reveal" data-product="vase" data-title="Deko-Vase" data-material="PLA" data-layer="0,2 mm" data-image="vase.png">
+    <button class="card-button" aria-label="Deko-Vase zum Warenkorb">
+      <div class="card-art">
+        <img src="vase.png" alt="Deko-Vase">
+      </div>
+      <div class="card-body">
+        <h3>Deko-Vase</h3>
+        <p>Organische Form mit durchgehender Spirallinie.</p>
+        <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="zahnrad.png" alt="Zahnrad-Modell">
-    </div>
-    <div class="card-body">
-      <h3>Zahnrad-Modell</h3>
-      <p>Funktionsteil mit engen Toleranzen, PETG für Stabilität.</p>
-      <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,16 mm</div>
-    </div>
+  <div class="card reveal" data-product="zahnrad" data-title="Zahnrad-Modell" data-material="PETG" data-layer="0,16 mm" data-image="zahnrad.png">
+    <button class="card-button" aria-label="Zahnrad-Modell zum Warenkorb">
+      <div class="card-art">
+        <img src="zahnrad.png" alt="Zahnrad-Modell">
+      </div>
+      <div class="card-body">
+        <h3>Zahnrad-Modell</h3>
+        <p>Funktionsteil mit engen Toleranzen, PETG für Stabilität.</p>
+        <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,16 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="figur.png" alt="Mini-Figur">
-    </div>
-    <div class="card-body">
-      <h3>Mini-Figur</h3>
-      <p>Kleine Charakterfigur, per Hand nachbearbeitet.</p>
-      <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,12 mm</div>
-    </div>
+  <div class="card reveal" data-product="figur" data-title="Mini-Figur" data-material="PLA" data-layer="0,12 mm" data-image="figur.png">
+    <button class="card-button" aria-label="Mini-Figur zum Warenkorb">
+      <div class="card-art">
+        <img src="figur.png" alt="Mini-Figur">
+      </div>
+      <div class="card-body">
+        <h3>Mini-Figur</h3>
+        <p>Kleine Charakterfigur, per Hand nachbearbeitet.</p>
+        <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,12 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="handy.png" alt="Handy-Ständer">
-    </div>
-    <div class="card-body">
-      <h3>Handy-Ständer</h3>
-      <p>Stabiler Alltagsgegenstand mit verstellbarem Winkel.</p>
-      <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,2 mm</div>
-    </div>
+  <div class="card reveal" data-product="handy" data-title="Handy-Ständer" data-material="PETG" data-layer="0,2 mm" data-image="handy.png">
+    <button class="card-button" aria-label="Handy-Ständer zum Warenkorb">
+      <div class="card-art">
+        <img src="handy.png" alt="Handy-Ständer">
+      </div>
+      <div class="card-body">
+        <h3>Handy-Ständer</h3>
+        <p>Stabiler Alltagsgegenstand mit verstellbarem Winkel.</p>
+        <div class="card-meta"><span>Material</span>PETG <span>Schichthöhe</span>0,2 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="anhänger.png" alt="Schlüsselanhänger">
-    </div>
-    <div class="card-body">
-      <h3>Schlüsselanhänger</h3>
-      <p>Personalisierbare Form, klein und schnell gedruckt.</p>
-      <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,16 mm</div>
-    </div>
+  <div class="card reveal" data-product="anhaenger" data-title="Schlüsselanhänger" data-material="PLA" data-layer="0,16 mm" data-image="anhänger.png">
+    <button class="card-button" aria-label="Schlüsselanhänger zum Warenkorb">
+      <div class="card-art">
+        <img src="anhänger.png" alt="Schlüsselanhänger">
+      </div>
+      <div class="card-body">
+        <h3>Schlüsselanhänger</h3>
+        <p>Personalisierbare Form, klein und schnell gedruckt.</p>
+        <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,16 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="buchstabe.png" alt="Deko-Buchstaben">
-    </div>
-    <div class="card-body">
-      <h3>Deko-Buchstaben</h3>
-      <p>Einzelbuchstaben zum Zusammenstecken, z. B. für Regale.</p>
-      <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
-    </div>
+  <div class="card reveal" data-product="buchstabe" data-title="Deko-Buchstaben" data-material="PLA" data-layer="0,2 mm" data-image="buchstabe.png">
+    <button class="card-button" aria-label="Deko-Buchstaben zum Warenkorb">
+      <div class="card-art">
+        <img src="buchstabe.png" alt="Deko-Buchstaben">
+      </div>
+      <div class="card-body">
+        <h3>Deko-Buchstaben</h3>
+        <p>Einzelbuchstaben zum Zusammenstecken, z. B. für Regale.</p>
+        <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="tisch.png" alt="Schreibtisch-Organizer">
-    </div>
-    <div class="card-body">
-      <h3>Schreibtisch-Organizer</h3>
-      <p>Modulares System für Stifte und Zubehör, stapelbar.</p>
-      <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
-    </div>
+  <div class="card reveal" data-product="organizer" data-title="Schreibtisch-Organizer" data-material="PLA" data-layer="0,2 mm" data-image="organizer.png">
+    <button class="card-button" aria-label="Schreibtisch-Organizer zum Warenkorb">
+      <div class="card-art">
+        <img src="organizer.png" alt="Schreibtisch-Organizer">
+      </div>
+      <div class="card-body">
+        <h3>Schreibtisch-Organizer</h3>
+        <p>Modulares System für Stifte und Zubehör, stapelbar.</p>
+        <div class="card-meta"><span>Material</span>PLA <span>Schichthöhe</span>0,2 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="led.png" alt="LED-Lampenfuß">
-    </div>
-    <div class="card-body">
-      <h3>LED-Lampenfuß</h3>
-      <p>Geometrisches Design mit Aussparung für LED-Streifen.</p>
-      <div class="card-meta"><span>Material</span>PLA Areo <span>Schichthöhe</span>0,2 mm</div>
-    </div>
+  <div class="card reveal" data-product="lampenfuss" data-title="LED-Lampenfuß" data-material="PLA Areo" data-layer="0,2 mm" data-image="lampenfuss.png">
+    <button class="card-button" aria-label="LED-Lampenfuß zum Warenkorb">
+      <div class="card-art">
+        <img src="lampenfuss.png" alt="LED-Lampenfuß">
+      </div>
+      <div class="card-body">
+        <h3>LED-Lampenfuß</h3>
+        <p>Geometrisches Design mit Aussparung für LED-Streifen.</p>
+        <div class="card-meta"><span>Material</span>PLA Areo <span>Schichthöhe</span>0,2 mm</div>
+      </div>
+    </button>
   </div>
 
-  <div class="card reveal">
-    <div class="card-art">
-      <img src="kabel.png" alt="Kabel-Halter">
-    </div>
-    <div class="card-body">
-      <h3>Kabel-Halter</h3>
-      <p>Praktischer Clip zur Kabelorganisation am Schreibtisch.</p>
-      <div class="card-meta"><span>Material</span>TPU <span>Schichthöhe</span>0,16 mm</div>
-    </div>
+  <div class="card reveal" data-product="cable" data-title="Kabel-Halter" data-material="TPU" data-layer="0,16 mm" data-image="cable-clip.png">
+    <button class="card-button" aria-label="Kabel-Halter zum Warenkorb">
+      <div class="card-art">
+        <img src="cable-clip.png" alt="Kabel-Halter">
+      </div>
+      <div class="card-body">
+        <h3>Kabel-Halter</h3>
+        <p>Praktischer Clip zur Kabelorganisation am Schreibtisch.</p>
+        <div class="card-meta"><span>Material</span>TPU <span>Schichthöhe</span>0,16 mm</div>
+      </div>
+    </button>
   </div>
 
 </div>
-
 
     </div>
     <p class="gallery-note">Alle gezeigten Modelle sind eigene Testdrucke von infinity3D.</p>
@@ -332,6 +357,47 @@
 
 </main>
 
+<!-- ============ PRODUCT MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="productModal">
+    <button class="modal-close" id="modalClose" aria-label="Schließen">×</button>
+    <div class="modal-content">
+      <div class="modal-image">
+        <img id="modalImage" src="" alt="">
+      </div>
+      <div class="modal-info">
+        <h2 id="modalTitle">Produkt</h2>
+        <div class="modal-specs">
+          <div class="spec">
+            <span class="spec-label">Material</span>
+            <span class="spec-value" id="modalMaterial">—</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Schichthöhe</span>
+            <span class="spec-value" id="modalLayer">—</span>
+          </div>
+        </div>
+        <p class="modal-demo-note">💡 Dies ist eine Demo-Oberfläche. Keine echten Daten werden gespeichert.</p>
+        <button class="btn btn-fill" id="addToCartBtn">Zum Warenkorb</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CART PANEL ============ -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>Warenkorb</h3>
+    <button class="cart-panel-close" id="cartPanelClose" aria-label="Schließen">×</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">Warenkorb ist leer</p>
+  </div>
+  <div class="cart-footer">
+    <button class="btn btn-fill cart-checkout" id="checkoutBtn" disabled>Zur Bestellung</button>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap footer-row">
@@ -340,7 +406,7 @@
       <span>Handgedruckt seit 2025</span>
     </div>
     <div class="footer-credits">
-      <span>Musik: <a href="https://pixabay.com/users/the_mountain-21157313/" target="_blank" rel="noopener">The_Mountain</a> on <a href="https://pixabay.com/" target="_blank" rel="noopener">Pixabay</a></span>
+      <span>Musik: <a href="https://pixabay.com/users/the_mountain-21157313/" target="_blank" rel="noopener">The_Mountain</a> on <a href="https://pixabay.com/" target="_blank" rel="noopener">Pixabay</[...]
     </div>
   </div>
 </footer>
@@ -384,7 +450,6 @@
   const audio = document.getElementById('bgMusic');
   let playing = false;
 
-  // Audio loop bei Ende
   audio.addEventListener('ended', () => {
     audio.currentTime = 0;
     audio.play();
@@ -450,6 +515,164 @@
   }, { threshold: 0.15 });
 
   items.forEach(item => observer.observe(item));
+})();
+
+/* ===================== SHOPPING CART SYSTEM ===================== */
+(function () {
+  let cart = JSON.parse(localStorage.getItem('i3d-cart')) || [];
+
+  const cartToggle = document.getElementById('cartToggle');
+  const cartPanel = document.getElementById('cartPanel');
+  const cartPanelClose = document.getElementById('cartPanelClose');
+  const cartItems = document.getElementById('cartItems');
+  const cartCount = document.getElementById('cartCount');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  const modalOverlay = document.getElementById('modalOverlay');
+  const productModal = document.getElementById('productModal');
+  const modalClose = document.getElementById('modalClose');
+  const addToCartBtn = document.getElementById('addToCartBtn');
+
+  const modalTitle = document.getElementById('modalTitle');
+  const modalImage = document.getElementById('modalImage');
+  const modalMaterial = document.getElementById('modalMaterial');
+  const modalLayer = document.getElementById('modalLayer');
+
+  let currentProduct = null;
+
+  // Open modal when clicking on a gallery card
+  document.querySelectorAll('.card-button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = btn.closest('.card');
+      currentProduct = {
+        id: card.dataset.product,
+        title: card.dataset.title,
+        material: card.dataset.material,
+        layer: card.dataset.layer,
+        image: card.dataset.image
+      };
+      
+      modalTitle.textContent = currentProduct.title;
+      modalImage.src = currentProduct.image;
+      modalImage.alt = currentProduct.title;
+      modalMaterial.textContent = currentProduct.material;
+      modalLayer.textContent = currentProduct.layer;
+      
+      modalOverlay.classList.add('active');
+      productModal.classList.add('active');
+    });
+  });
+
+  // Close modal
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    productModal.classList.remove('active');
+    currentProduct = null;
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Add to cart
+  addToCartBtn.addEventListener('click', () => {
+    if (currentProduct) {
+      const existingItem = cart.find(item => item.id === currentProduct.id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...currentProduct, quantity: 1 });
+      }
+      
+      localStorage.setItem('i3d-cart', JSON.stringify(cart));
+      updateCartUI();
+      closeModal();
+      
+      // Show cart panel briefly
+      cartPanel.classList.add('show');
+      setTimeout(() => {
+        cartPanel.classList.remove('show');
+      }, 2000);
+    }
+  });
+
+  // Toggle cart panel
+  cartToggle.addEventListener('click', () => {
+    cartPanel.classList.toggle('open');
+  });
+
+  cartPanelClose.addEventListener('click', () => {
+    cartPanel.classList.remove('open');
+  });
+
+  // Update cart UI
+  function updateCartUI() {
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p class="cart-empty">Warenkorb ist leer</p>';
+      checkoutBtn.disabled = true;
+    } else {
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4>${item.title}</h4>
+            <p>${item.material} • ${item.layer}</p>
+          </div>
+          <div class="cart-item-qty">
+            <span class="qty-label">Menge:</span>
+            <div class="qty-controls">
+              <button class="qty-btn" data-id="${item.id}" data-action="decrease">−</button>
+              <span class="qty-value">${item.quantity}</span>
+              <button class="qty-btn" data-id="${item.id}" data-action="increase">+</button>
+            </div>
+            <button class="qty-remove" data-id="${item.id}" title="Entfernen">🗑</button>
+          </div>
+        </div>
+      `).join('');
+      
+      checkoutBtn.disabled = false;
+
+      // Attach quantity button listeners
+      document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          const item = cart.find(i => i.id === id);
+          
+          if (action === 'increase') {
+            item.quantity += 1;
+          } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity -= 1;
+          }
+          
+          localStorage.setItem('i3d-cart', JSON.stringify(cart));
+          updateCartUI();
+        });
+      });
+
+      // Attach remove button listeners
+      document.querySelectorAll('.qty-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          cart = cart.filter(i => i.id !== id);
+          localStorage.setItem('i3d-cart', JSON.stringify(cart));
+          updateCartUI();
+        });
+      });
+    }
+  }
+
+  // Checkout (demo)
+  checkoutBtn.addEventListener('click', () => {
+    if (cart.length > 0) {
+      alert('🎉 Demo-Checkout:\n\n' + cart.map(item => `${item.title} (${item.quantity}x)`).join('\n') + '\n\nIn Wirklichkeit würden Sie hier zu einem echten Bestellformular weitergeleitet.');
+    }
+  });
+
+  // Initialize cart UI on page load
+  updateCartUI();
 })();
 </script>
 
