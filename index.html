@@ -310,7 +310,7 @@
 <!-- ============ SOUND ============ -->
 <button class="sound-toggle" id="soundToggle" aria-pressed="false">
   <span class="eq"><span></span><span></span><span></span></span>
-  Werkstatt-Sound
+  Musik
 </button>
 
 <script>
@@ -340,84 +340,47 @@
 (function () {
   const btn = document.getElementById('soundToggle');
   let ctx = null;
-  let nodes = null;
   let playing = false;
+  let interval = null;
 
-  function noiseBuffer(context) {
-    const length = context.sampleRate * 2;
-    const buffer = context.createBuffer(1, length, context.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1;
-    return buffer;
+  // kleine Melodie (in Hz)
+  const melody = [440, 494, 523, 587]; // A4, B4, C5, D5
+
+  function playNote(freq) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05); // Attack
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.35);   // Release
+
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.4);
   }
 
   function start() {
     ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
     if (ctx.state === 'suspended') ctx.resume();
 
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.connect(ctx.destination);
+    let index = 0;
+    interval = setInterval(() => {
+      playNote(melody[index]);
+      index = (index + 1) % melody.length;
+    }, 450);
 
-    // Motor-Summen
-    const hum = ctx.createOscillator();
-    hum.type = 'sawtooth';
-    hum.frequency.value = 55;
-    const humFilter = ctx.createBiquadFilter();
-    humFilter.type = 'lowpass';
-    humFilter.frequency.value = 220;
-    const humGain = ctx.createGain();
-    humGain.gain.value = 0.3;
-    hum.connect(humFilter).connect(humGain).connect(master);
-    hum.start();
-
-    // Lüfter-Rauschen
-    const noise = ctx.createBufferSource();
-    noise.buffer = noiseBuffer(ctx);
-    noise.loop = true;
-    const noiseFilter = ctx.createBiquadFilter();
-    noiseFilter.type = 'bandpass';
-    noiseFilter.frequency.value = 1200;
-    noiseFilter.Q.value = 0.6;
-    const noiseGain = ctx.createGain();
-    noiseGain.gain.value = 0.05;
-    noise.connect(noiseFilter).connect(noiseGain).connect(master);
-    noise.start();
-
-    // Stepper-Motor-Puls
-    const stepper = ctx.createOscillator();
-    stepper.type = 'square';
-    stepper.frequency.value = 210;
-    const stepperGain = ctx.createGain();
-    stepperGain.gain.value = 0;
-    stepper.connect(stepperGain).connect(master);
-    stepper.start();
-
-    const lfo = ctx.createOscillator();
-    lfo.type = 'square';
-    lfo.frequency.value = 6;
-    const lfoGain = ctx.createGain();
-    lfoGain.gain.value = 0.045;
-    lfo.connect(lfoGain).connect(stepperGain.gain);
-    lfo.start();
-
-    master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.4);
-
-    nodes = { master, sources: [hum, noise, stepper, lfo] };
     playing = true;
     btn.classList.add('playing');
     btn.setAttribute('aria-pressed', 'true');
   }
 
   function stop() {
-    if (!nodes) return;
-    const t = ctx.currentTime;
-    nodes.master.gain.cancelScheduledValues(t);
-    nodes.master.gain.setValueAtTime(nodes.master.gain.value, t);
-    nodes.master.gain.linearRampToValueAtTime(0, t + 0.8);
-    const toStop = nodes.sources;
-    setTimeout(() => toStop.forEach(n => { try { n.stop(); } catch (e) {} }), 850);
-    nodes = null;
+    if (!interval) return;
+    clearInterval(interval);
+    interval = null;
     playing = false;
     btn.classList.remove('playing');
     btn.setAttribute('aria-pressed', 'false');
@@ -425,6 +388,7 @@
 
   btn.addEventListener('click', () => (playing ? stop() : start()));
 })();
+
 
 /* ===================== THEME-UMSCHALTER ===================== */
 (function () {
