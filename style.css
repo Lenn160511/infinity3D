@@ -498,8 +498,12 @@ nav {
   overflow: hidden;
 }
 
-.printer-vis svg { width: 100%; height: 100%; }
+.printer-vis svg {
+  width: 100%;
+  height: 100%;
+}
 
+/* Objekt wächst */
 .pv-object {
   transform-origin: center bottom;
   animation: grow-layers 5s ease-in-out infinite;
@@ -510,18 +514,33 @@ nav {
   75%, 100% { clip-path: inset(0% 0 0 0); }
 }
 
+/* Druckkopf bewegt sich nur in X */
 .pv-head {
-  animation: head-travel 5s ease-in-out infinite;
+  animation: head-x 5s ease-in-out infinite;
+  transform-origin: center;
 }
 
-@keyframes head-travel {
-  0%   { transform: translate(0, 0); }
-  12%  { transform: translate(0, 0); }
-  30%  { transform: translate(26px, -14px); }
-  50%  { transform: translate(-20px, -30px); }
-  70%  { transform: translate(14px, -48px); }
-  75%  { transform: translate(0, -58px); }
-  100% { transform: translate(0, -58px); }
+@keyframes head-x {
+  0%, 12%  { transform: translateX(0); }
+  30%      { transform: translateX(26px); }
+  50%      { transform: translateX(-20px); }
+  70%      { transform: translateX(14px); }
+  75%,100% { transform: translateX(0); }
+}
+
+/* Stange bewegt sich nur in Y */
+.pv-bar {
+  transform: translateY(100px); /* Start weiter unten */
+  animation: bar-rise 5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes bar-rise {
+  0%, 12%  { transform: translateY(0); }
+  30%      { transform: translateY(-14px); }
+  50%      { transform: translateY(-30px); }
+  70%      { transform: translateY(-48px); }
+  75%,100% { transform: translateY(-58px); }
 }
 
 /* ---------- 8) Über uns ---------- */
